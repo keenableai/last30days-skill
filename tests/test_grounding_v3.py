@@ -678,6 +678,7 @@ class ParallelMCPRuntimeTests(unittest.TestCase):
 
     def test_auto_without_opt_in_does_not_contact_parallel_mcp(self):
         with patch("lib.grounding.parallel_mcp.search") as mcp_search, \
+             patch("lib.grounding.keenable_search", return_value=([], {})), \
              patch("lib.grounding.web_search_keyless.keyless_search", return_value=([], {})):
             grounding.web_search("test", ("2026-07-27", "2026-08-26"), {}, backend="auto")
         mcp_search.assert_not_called()
